@@ -1,474 +1,163 @@
 # Renesas FSP-based Embedded Software
 
+> [!IMPORTANT]
+> Unlike a modular multi-repository model, the Renesas RA software offer is delivered through a **monorepo model**: the Flexible Software Package (FSP) HAL drivers, Board Support Packages (BSP), CMSIS device headers, and most middleware are all maintained inside a single repository, [`renesas/fsp`](https://github.com/renesas/fsp). The tables below link directly to the relevant folder inside that repository, or to the dedicated repository where one exists (examples, RX/RZ packages, middleware, AI).
+
 ## Table of contents
 
 - [Renesas FSP MCU Packages](#renesas-fsp-mcu-packages)
-- [Renesas Application Expansion Packages](#renesas-application-expansion-packages)
-- [Renesas Function Packs](#renesas-function-packs)
+- [Renesas Application Projects and Examples](#renesas-application-projects-and-examples)
 - [Renesas CMSIS](#renesas-cmsis)
 - [Renesas FSP HAL Drivers](#renesas-fsp-hal-drivers)
-- [Renesas BSP Drivers](#renesas-bsp-drivers)
+- [Renesas BSP Board Support](#renesas-bsp-board-support)
 - [Renesas MW Libraries and Applications](#renesas-mw-libraries-and-applications)
-- [Renesas USB-PD Components](#renesas-usb-pd-components)
+- [Renesas AI and Model Deployment](#renesas-ai-and-model-deployment)
 - [Renesas Utilities and miscellaneous](#renesas-utilities-and-miscellaneous)
 
 ## Renesas FSP MCU Packages
 
-Renesas FSP MCU Packages provide embedded software components, including drivers, middleware, and utilities, for developing applications on Renesas RA microcontrollers. Example projects demonstrate their use on Renesas RA boards. Additionally, the Flexible Software Package (FSP) framework ensures portability across the RA series.
+The Renesas MCU embedded software offer is delivered per product family. The RA family uses the Flexible Software Package (FSP); the RX family uses the RX Driver Package; wireless RA MCUs use the RA Wireless FSP (RAFW).
 
-| MCU package | Repository |
-| :--- | :--- |
-| FSP-RA0 | [Go to repository](#) |
-| FSP-RA2 | [Go to repository](#) |
-| FSP-RA4 | [Go to repository](#) |
-| FSP-RA4W1 | [Go to repository](#) |
-| FSP-RA6 | [Go to repository](#) |
-| FSP-RA8 | [Go to repository](#) |
+| MCU package | Description | Repository |
+| :--- | :--- | :--- |
+| FSP (RA Family) | Production-ready HAL drivers, BSP, RTOS integration and middleware for all RA MCUs | [Go to repository](https://github.com/renesas/fsp) |
+| RA Wireless FSP (RAFW) | FSP for Renesas RA Wireless MCUs (e.g., RA4W1) | [Go to repository](https://github.com/renesas/rafw-fsp) |
+| RX Driver Package | Official device driver package for the Renesas RX Family (referenced by Smart Configurator) | [Go to repository](https://github.com/renesas/rx-driver-package) |
+| IoT Reference (RX) | FreeRTOS + AWS IoT reference integration for RX MCUs | [Go to repository](https://github.com/renesas/iot-reference-rx) |
+| RZ FSP (RZ MPU Family) | FSP for the Renesas RZ series (RZ/A, RZ/G, RZ/N, RZ/T, RZ/V) | [Go to repository](https://github.com/renesas/rz-fsp) |
 
-## Renesas Application Expansion Packages
+## Renesas Application Projects and Examples
 
-Renesas Application Expansion Packages complement the FSP MCU Packages with additional software bricks, including specific drivers for external companion chips or application-specific middleware. They offer simplified implementations of real-world use cases in areas, such as sensing, power management, connectivity, and audio.
+Example projects demonstrate the basic usage of FSP modules on RA boards. Application projects illustrate solutions in various core technologies and map to Renesas Application Notes.
 
-**Section content**
-
-- [Renesas AI Expansion Package](#renesas-ai-expansion-package)
-- [Renesas Azure RTOS Expansion Package](#renesas-azure-rtos-expansion-package)
-- [Renesas Connectivity Expansion Package](#renesas-connectivity-expansion-package)
-- [Renesas FreeRTOS Expansion Package](#renesas-freertos-expansion-package)
-- [Renesas IoT Expansion Package](#renesas-iot-expansion-package)
-- [Renesas MEMS and Sensors Expansion Package](#renesas-mems-and-sensors-expansion-package)
-- [Renesas USB-PD Expansion Package](#renesas-usb-pd-expansion-package)
-- [Renesas Miscellaneous Expansion Package](#renesas-miscellaneous-expansion-package)
-
-### Renesas AI Expansion Package
-
-| Expansion Package | Repository |
-| :--- | :--- |
-| ra-ai-vision-face-detection | [Go to repository](#) |
-| ra-ai-hand-gesture-recognition | [Go to repository](#) |
-| ra-ai-people-detection-tracking | [Go to repository](#) |
-| ra-ai-object-detection | [Go to repository](#) |
-| ra-ai-power-measurement | [Go to repository](#) |
-| ra-camera-capture | [Go to repository](#) |
-
-### Renesas Azure RTOS Expansion Package
-
-| Expansion Package | Repository |
-| :--- | :--- |
-| ra-azrtos-ra4 | [Go to repository](#) |
-| ra-azrtos-ra6 | [Go to repository](#) |
-| ra-azrtos-ra8 | [Go to repository](#) |
-
-### Renesas Connectivity Expansion Package
-
-| Expansion Package | Repository |
-| :--- | :--- |
-| ra-ble | [Go to repository](#) |
-| ra-nfc | [Go to repository](#) |
-| ra-subghz | [Go to repository](#) |
-| ra-wifi | [Go to repository](#) |
-
-### Renesas FreeRTOS Expansion Package
-
-| Expansion Package | Repository |
-| :--- | :--- |
-| ra-freertos | [Go to repository](#) |
-
-### Renesas IoT Expansion Package
-
-| Expansion Package | Repository |
-| :--- | :--- |
-| ra-aws | [Go to repository](#) |
-| ra-azure-iot | [Go to repository](#) |
-
-### Renesas MEMS and Sensors Expansion Package
-
-| Expansion Package | Repository |
-| :--- | :--- |
-| ra-sensors | [Go to repository](#) |
-| ra-mems-mic | [Go to repository](#) |
-| ra-tof | [Go to repository](#) |
-
-### Renesas USB-PD Expansion Package
-
-| Expansion Package | Repository |
-| :--- | :--- |
-| ra-usb-pd | [Go to repository](#) |
-| ra-tcpp | [Go to repository](#) |
-
-### Renesas Miscellaneous Expansion Package
-
-| Expansion Package | Repository |
-| :--- | :--- |
-| ra-eeprom | [Go to repository](#) |
-| ra-gnss | [Go to repository](#) |
-
-## Renesas Function Packs
-
-Renesas Function Packs (FP) are a combination of low-level drivers, middleware libraries and sample applications assembled into a single software package. You can get the entire list of available Function Packs on [renesas.com](https://www.renesas.com). The below list represents the Function Packs available on github.com.
-
-| Function Pack | Repository |
-| :--- | :--- |
-| fp-ai-sensing | [Go to repository](#) |
-| fp-ai-vision | [Go to repository](#) |
-| fp-aud-smartmic | [Go to repository](#) |
-| fp-sns-datalog | [Go to repository](#) |
-| fp-sns-motenv | [Go to repository](#) |
-| fp-cld-azure | [Go to repository](#) |
-| fp-cld-aws | [Go to repository](#) |
-
-## Renesas FSP MCU Components
-
-As mentioned above, the Renesas FSP MCU Components are an alternative delivery model to the FSP monolithic offer. Each software component is delivered in a dedicated repository, allowing users to select and download only those relevant to their application needs.
-
-> [!NOTE]
-> Care must be taken regarding the cross-compatibility of components. Please refer to the README.md file in each repository for details.
+| Package | Description | Repository |
+| :--- | :--- | :--- |
+| RA FSP Examples | Example projects and application projects for the RA MCU family (per-kit, per-module) | [Go to repository](https://github.com/renesas/ra-fsp-examples) |
+| RAFW FSP Examples | Example projects for RA Wireless MCUs | [Go to repository](https://github.com/renesas/rafw-fsp-examples) |
+| RZ FSP Examples | Example projects for the RZ MPU family | [Go to repository](https://github.com/renesas/rz-fsp-examples) |
+| CPK Examples | Sample code for China Promotion Kits (CPK boards) | [Go to repository](https://github.com/renesas/cpk_examples) |
 
 ## Renesas CMSIS
 
-The CMSIS interfaces offer access to the Arm Cortex®-M processor core features and device-specific peripherals of Renesas RA microcontrollers.
+The CMSIS interfaces offer access to the Arm Cortex®-M processor core features and device-specific peripherals of Renesas RA microcontrollers. CMSIS core and device headers are delivered inside the FSP BSP; CMSIS software event/IO tooling is maintained in a dedicated repository.
 
-### Renesas CMSIS Core
-
-| CMSIS Core | Repository |
-| :--- | :--- |
-| cmsis-core | [Go to repository](#) |
-
-### Renesas CMSIS Device
-
-| CMSIS Device | Repository |
-| :--- | :--- |
-| cmsis-device-ra0 | [Go to repository](#) |
-| cmsis-device-ra2 | [Go to repository](#) |
-| cmsis-device-ra4 | [Go to repository](#) |
-| cmsis-device-ra4w1 | [Go to repository](#) |
-| cmsis-device-ra6 | [Go to repository](#) |
-| cmsis-device-ra8 | [Go to repository](#) |
+| CMSIS component | Description | Repository |
+| :--- | :--- | :--- |
+| FSP BSP (CMSIS core + device) | CMSIS-Core integration and RA device headers, delivered within the FSP BSP | [Go to repository](https://github.com/renesas/fsp/tree/master/ra/fsp/src/bsp) |
+| CMSIS-View | CMSIS software pack for software event generation and I/O handling | [Go to repository](https://github.com/renesas/CMSIS-View) |
 
 ## Renesas FSP HAL Drivers
 
-The HAL Drivers MCU Components propose the HAL and register-level driver modules controlling all the hardware peripherals embedded in the Renesas RA products.
+The HAL Drivers propose the HAL and register-level driver modules controlling all the hardware peripherals embedded in the Renesas RA products. Each peripheral driver is maintained as a module folder (`r_<peripheral>`) inside the FSP repository. Their usage is illustrated through examples in the [ra-fsp-examples](https://github.com/renesas/ra-fsp-examples) repository.
 
-**HAL Drivers:** A set of portable abstraction APIs offering high level services, built around standalone processes. The HAL drivers are functionality-oriented, example: for the Timer peripheral, the APIs could be split into several categories following the functions offered by the IPs (Basic timer, capture, PWM...); for a communication IP: an initialisation function, eventually a configuration function and data transfer services (polling, interruption or DMA based). The compatibility SHALL be guaranteed across all the RA families for the generic APIs, including generic macros and common structure defines. Any specific feature is given in a dedicated extension model available in the associated extension files.
+| Peripheral | HAL Driver module | Repository |
+| :--- | :--- | :--- |
+| ADC (12/14-bit) | r_adc | [Go to repository](https://github.com/renesas/fsp/tree/master/ra/fsp/src/r_adc) |
+| ADC (scalable, _b) | r_adc_b | [Go to repository](https://github.com/renesas/fsp/tree/master/ra/fsp/src/r_adc_b) |
+| DAC | r_dac | [Go to repository](https://github.com/renesas/fsp/tree/master/ra/fsp/src/r_dac) |
+| Comparator (High-speed) | r_acmphs | [Go to repository](https://github.com/renesas/fsp/tree/master/ra/fsp/src/r_acmphs) |
+| Comparator (Low-power) | r_acmplp | [Go to repository](https://github.com/renesas/fsp/tree/master/ra/fsp/src/r_acmplp) |
+| General PWM Timer | r_gpt | [Go to repository](https://github.com/renesas/fsp/tree/master/ra/fsp/src/r_gpt) |
+| Three-Phase PWM | r_gpt_three_phase | [Go to repository](https://github.com/renesas/fsp/tree/master/ra/fsp/src/r_gpt_three_phase) |
+| Asynchronous General-Purpose Timer | r_agt | [Go to repository](https://github.com/renesas/fsp/tree/master/ra/fsp/src/r_agt) |
+| SCI UART | r_sci_uart | [Go to repository](https://github.com/renesas/fsp/tree/master/ra/fsp/src/r_sci_uart) |
+| SPI | r_spi | [Go to repository](https://github.com/renesas/fsp/tree/master/ra/fsp/src/r_spi) |
+| I2C Master (IIC) | r_iic_master | [Go to repository](https://github.com/renesas/fsp/tree/master/ra/fsp/src/r_iic_master) |
+| I2C Slave (IIC) | r_iic_slave | [Go to repository](https://github.com/renesas/fsp/tree/master/ra/fsp/src/r_iic_slave) |
+| I3C | r_i3c | [Go to repository](https://github.com/renesas/fsp/tree/master/ra/fsp/src/r_i3c) |
+| CAN | r_can | [Go to repository](https://github.com/renesas/fsp/tree/master/ra/fsp/src/r_can) |
+| CAN-FD | r_canfd | [Go to repository](https://github.com/renesas/fsp/tree/master/ra/fsp/src/r_canfd) |
+| Ethernet MAC | r_ether | [Go to repository](https://github.com/renesas/fsp/tree/master/ra/fsp/src/r_ether) |
+| Ethernet PHY | r_ether_phy | [Go to repository](https://github.com/renesas/fsp/tree/master/ra/fsp/src/r_ether_phy) |
+| USB (Basic) | r_usb_basic | [Go to repository](https://github.com/renesas/fsp/tree/master/ra/fsp/src/r_usb_basic) |
+| Camera Engine Unit | r_ceu | [Go to repository](https://github.com/renesas/fsp/tree/master/ra/fsp/src/r_ceu) |
+| MIPI CSI | r_mipi_csi | [Go to repository](https://github.com/renesas/fsp/tree/master/ra/fsp/src/r_mipi_csi) |
+| Graphics LCD Controller | r_glcdc | [Go to repository](https://github.com/renesas/fsp/tree/master/ra/fsp/src/r_glcdc) |
+| 2D Drawing Engine | r_drw | [Go to repository](https://github.com/renesas/fsp/tree/master/ra/fsp/src/r_drw) |
+| JPEG Codec | r_jpeg | [Go to repository](https://github.com/renesas/fsp/tree/master/ra/fsp/src/r_jpeg) |
+| Capacitive Touch Sensing Unit | r_ctsu | [Go to repository](https://github.com/renesas/fsp/tree/master/ra/fsp/src/r_ctsu) |
+| Code Flash / Data Flash (HP) | r_flash_hp | [Go to repository](https://github.com/renesas/fsp/tree/master/ra/fsp/src/r_flash_hp) |
+| Code Flash / Data Flash (LP) | r_flash_lp | [Go to repository](https://github.com/renesas/fsp/tree/master/ra/fsp/src/r_flash_lp) |
+| DMA Controller | r_dmac | [Go to repository](https://github.com/renesas/fsp/tree/master/ra/fsp/src/r_dmac) |
+| Data Transfer Controller | r_dtc | [Go to repository](https://github.com/renesas/fsp/tree/master/ra/fsp/src/r_dtc) |
+| Clock Generation Circuit | r_cgc | [Go to repository](https://github.com/renesas/fsp/tree/master/ra/fsp/src/r_cgc) |
+| Clock Accuracy Circuit | r_cac | [Go to repository](https://github.com/renesas/fsp/tree/master/ra/fsp/src/r_cac) |
+| Low Power Modes | r_lpm | [Go to repository](https://github.com/renesas/fsp/tree/master/ra/fsp/src/r_lpm) |
+| Independent Watchdog | r_iwdt | [Go to repository](https://github.com/renesas/fsp/tree/master/ra/fsp/src/r_iwdt) |
+| I/O Port | r_ioport | [Go to repository](https://github.com/renesas/fsp/tree/master/ra/fsp/src/r_ioport) |
+| External IRQ | r_icu | [Go to repository](https://github.com/renesas/fsp/tree/master/ra/fsp/src/r_icu) |
+| Bluetooth LE | r_ble | [Go to repository](https://github.com/renesas/fsp/tree/master/ra/fsp/src/r_ble) |
 
-**Register-level Drivers:** A set of basic functions with direct hardware access (no standalone process), this layer can be called either by applications or by the HAL drivers.
+> The complete list of peripheral HAL driver modules is available in [`ra/fsp/src`](https://github.com/renesas/fsp/tree/master/ra/fsp/src).
 
-Both HAL and register-level drivers of each series are provided in the same repository. Their usage is illustrated through examples, available in the respective Renesas FSP MCU Firmware repositories.
+## Renesas BSP Board Support
 
-| HAL Driver | Repository |
-| :--- | :--- |
-| ra0xx-hal-driver | [Go to repository](#) |
-| ra2xx-hal-driver | [Go to repository](#) |
-| ra4xx-hal-driver | [Go to repository](#) |
-| ra4w1xx-hal-driver | [Go to repository](#) |
-| ra6xx-hal-driver | [Go to repository](#) |
-| ra8xx-hal-driver | [Go to repository](#) |
+The BSP provides board-specific initialization, pin configuration and peripheral mapping. Each supported RA development kit has a board definition folder inside the FSP repository, named `<device>_<kittype>` (e.g., `ra8d1_ek`, `ra6m5_ck`, `ra8t1_mck`). Board-specific examples live in [ra-fsp-examples](https://github.com/renesas/ra-fsp-examples).
 
-## Renesas BSP Drivers
+| Board | BSP folder | Repository |
+| :--- | :--- | :--- |
+| EK-RA2A1 | ra2a1_ek | [Go to repository](https://github.com/renesas/fsp/tree/master/ra/board/ra2a1_ek) |
+| EK-RA2E1 | ra2e1_ek | [Go to repository](https://github.com/renesas/fsp/tree/master/ra/board/ra2e1_ek) |
+| EK-RA2L1 | ra2l1_ek | [Go to repository](https://github.com/renesas/fsp/tree/master/ra/board/ra2l1_ek) |
+| EK-RA4M1 | ra4m1_ek | [Go to repository](https://github.com/renesas/fsp/tree/master/ra/board/ra4m1_ek) |
+| EK-RA4M2 | ra4m2_ek | [Go to repository](https://github.com/renesas/fsp/tree/master/ra/board/ra4m2_ek) |
+| EK-RA4M3 | ra4m3_ek | [Go to repository](https://github.com/renesas/fsp/tree/master/ra/board/ra4m3_ek) |
+| EK-RA4W1 | ra4w1_ek | [Go to repository](https://github.com/renesas/fsp/tree/master/ra/board/ra4w1_ek) |
+| EK-RA6M1 | ra6m1_ek | [Go to repository](https://github.com/renesas/fsp/tree/master/ra/board/ra6m1_ek) |
+| EK-RA6M2 | ra6m2_ek | [Go to repository](https://github.com/renesas/fsp/tree/master/ra/board/ra6m2_ek) |
+| EK-RA6M3 | ra6m3_ek | [Go to repository](https://github.com/renesas/fsp/tree/master/ra/board/ra6m3_ek) |
+| EK-RA6M3G | ra6m3g_ek | [Go to repository](https://github.com/renesas/fsp/tree/master/ra/board/ra6m3g_ek) |
+| EK-RA6M4 | ra6m4_ek | [Go to repository](https://github.com/renesas/fsp/tree/master/ra/board/ra6m4_ek) |
+| EK-RA6M5 | ra6m5_ek | [Go to repository](https://github.com/renesas/fsp/tree/master/ra/board/ra6m5_ek) |
+| CK-RA6M5 | ra6m5_ck | [Go to repository](https://github.com/renesas/fsp/tree/master/ra/board/ra6m5_ck) |
+| EK-RA8D1 | ra8d1_ek | [Go to repository](https://github.com/renesas/fsp/tree/master/ra/board/ra8d1_ek) |
+| EK-RA8M1 | ra8m1_ek | [Go to repository](https://github.com/renesas/fsp/tree/master/ra/board/ra8m1_ek) |
+| VK-RA8M1 | ra8m1_vk | [Go to repository](https://github.com/renesas/fsp/tree/master/ra/board/ra8m1_vk) |
+| EK-RA8P1 | ra8p1_ek | [Go to repository](https://github.com/renesas/fsp/tree/master/ra/board/ra8p1_ek) |
+| MCK-RA8T1 | ra8t1_mck | [Go to repository](https://github.com/renesas/fsp/tree/master/ra/board/ra8t1_mck) |
+| MCK-RA6T2 | ra6t2_mck | [Go to repository](https://github.com/renesas/fsp/tree/master/ra/board/ra6t2_mck) |
+| FPB-RA0E1 | ra0e1_fpb | [Go to repository](https://github.com/renesas/fsp/tree/master/ra/board/ra0e1_fpb) |
+| FPB-RA2E1 | ra2e1_fpb | [Go to repository](https://github.com/renesas/fsp/tree/master/ra/board/ra2e1_fpb) |
+| FPB-RA4E1 | ra4e1_fpb | [Go to repository](https://github.com/renesas/fsp/tree/master/ra/board/ra4e1_fpb) |
+| FPB-RA6E1 | ra6e1_fpb | [Go to repository](https://github.com/renesas/fsp/tree/master/ra/board/ra6e1_fpb) |
+| FPB-RA8E1 | ra8e1_fpb | [Go to repository](https://github.com/renesas/fsp/tree/master/ra/board/ra8e1_fpb) |
 
-The BSP Drivers MCU Components propose the Board Support Package Drivers, which are constituted from the:
-
-- **Renesas BSP Board Drivers**, based on the HAL drivers, and providing a set of high level APIs allowing a quick access to the board services (e.g., audio, graphics, access to external memories).
-- **Renesas BSP Component Drivers** providing a set of high level APIs allowing a quick access to hardware components available on the board but external to the MCU (e.g., audio codecs, LCD drivers, SD cards, MEMS). The link between these external components and the HAL drivers (e.g., an SD card and the OSPI / QSPI HAL driver) is established within the BSP Board drivers.
-
-> [!NOTE]
-> A number of BSP component drivers (particularly of MEMS) come in two forms, each addressing a different purpose. For each one of such BSP component drivers, two repositories are available as explained below:
->
-> - **PID: Platform-Independent Drivers.** Recognizable to their repositories' names `<bspcomp>` (e.g., `hs300x`). Are low-level drivers allowing direct access to components' registers. These drivers are independent of any software platform, as the acronym PID suggests.
-> - **RA: FSP-compatible drivers.** Recognizable to their repositories' names `ra-<bspcomp>` (e.g., `ra-hs300x`). Are hardware-abstracted drivers, specially designed to be compatible with the Renesas FSP software offer, as the `ra-` prefix suggests.
-
-### Renesas BSP Board Drivers
-
-**Section content**
-
-- [FSP-RA0 BSP Boards Drivers](#fsp-ra0-bsp-boards-drivers)
-- [FSP-RA2 BSP Boards Drivers](#fsp-ra2-bsp-boards-drivers)
-- [FSP-RA4 BSP Boards Drivers](#fsp-ra4-bsp-boards-drivers)
-- [FSP-RA4W1 BSP Boards Drivers](#fsp-ra4w1-bsp-boards-drivers)
-- [FSP-RA6 BSP Boards Drivers](#fsp-ra6-bsp-boards-drivers)
-- [FSP-RA8 BSP Boards Drivers](#fsp-ra8-bsp-boards-drivers)
-
-#### FSP-RA0 BSP Boards Drivers
-
-| BSP Board Driver | Repository |
-| :--- | :--- |
-| ek-ra0e1-bsp | [Go to repository](#) |
-| fpb-ra0e1-bsp | [Go to repository](#) |
-
-#### FSP-RA2 BSP Boards Drivers
-
-| BSP Board Driver | Repository |
-| :--- | :--- |
-| ek-ra2a1-bsp | [Go to repository](#) |
-| ek-ra2e1-bsp | [Go to repository](#) |
-| ek-ra2e2-bsp | [Go to repository](#) |
-| ek-ra2l1-bsp | [Go to repository](#) |
-| fpb-ra2e3-bsp | [Go to repository](#) |
-
-#### FSP-RA4 BSP Boards Drivers
-
-| BSP Board Driver | Repository |
-| :--- | :--- |
-| ek-ra4e2-bsp | [Go to repository](#) |
-| ek-ra4m1-bsp | [Go to repository](#) |
-| ek-ra4m2-bsp | [Go to repository](#) |
-| ek-ra4m3-bsp | [Go to repository](#) |
-| ek-ra4w1-bsp | [Go to repository](#) |
-| fpb-ra4e1-bsp | [Go to repository](#) |
-
-#### FSP-RA4W1 BSP Boards Drivers
-
-| BSP Board Driver | Repository |
-| :--- | :--- |
-| ek-ra4w1-bsp | [Go to repository](#) |
-
-#### FSP-RA6 BSP Boards Drivers
-
-| BSP Board Driver | Repository |
-| :--- | :--- |
-| ek-ra6e2-bsp | [Go to repository](#) |
-| ek-ra6m1-bsp | [Go to repository](#) |
-| ek-ra6m2-bsp | [Go to repository](#) |
-| ek-ra6m3-bsp | [Go to repository](#) |
-| ek-ra6m3g-bsp | [Go to repository](#) |
-| ek-ra6m4-bsp | [Go to repository](#) |
-| ek-ra6m5-bsp | [Go to repository](#) |
-| fpb-ra6e1-bsp | [Go to repository](#) |
-| fpb-ra6e2-bsp | [Go to repository](#) |
-
-#### FSP-RA8 BSP Boards Drivers
-
-| BSP Board Driver | Repository |
-| :--- | :--- |
-| ek-ra8d1-bsp | [Go to repository](#) |
-| ek-ra8m1-bsp | [Go to repository](#) |
-| fpb-ra8e1-bsp | [Go to repository](#) |
-| mck-ra8t1-bsp | [Go to repository](#) |
-
-### Renesas BSP Component Drivers
-
-**Section content**
-
-- [Renesas BSP Audio Component Drivers](#renesas-bsp-audio-component-drivers)
-- [Renesas BSP BLE Component Drivers](#renesas-bsp-ble-component-drivers)
-- [Renesas BSP Camera Component Drivers](#renesas-bsp-camera-component-drivers)
-- [Renesas BSP Display Component Drivers](#renesas-bsp-display-component-drivers)
-- [Renesas BSP EEPROM Component Drivers](#renesas-bsp-eeprom-component-drivers)
-- [Renesas BSP IO Expander Component Drivers](#renesas-bsp-io-expander-component-drivers)
-- [Renesas BSP LCD Component Drivers](#renesas-bsp-lcd-component-drivers)
-- [Renesas BSP MEMS Component Drivers](#renesas-bsp-mems-component-drivers)
-- [Renesas BSP Networking Component Drivers](#renesas-bsp-networking-component-drivers)
-- [Renesas BSP NFC/RFID Tag Component Drivers](#renesas-bsp-nfcrfid-tag-component-drivers)
-- [Renesas BSP xSPI-Interfaced Memory Component Drivers](#renesas-bsp-xspi-interfaced-memory-component-drivers)
-- [Renesas BSP SDRAM Component Drivers](#renesas-bsp-sdram-component-drivers)
-- [Renesas BSP Temperature and Humidity Sensor Component Drivers](#renesas-bsp-temperature-and-humidity-sensor-component-drivers)
-- [Renesas BSP Touch Screen Component Drivers](#renesas-bsp-touch-screen-component-drivers)
-- [Renesas BSP USB-C Component Drivers](#renesas-bsp-usb-c-component-drivers)
-- [Renesas BSP Wi-Fi Component Drivers](#renesas-bsp-wi-fi-component-drivers)
-
-#### Renesas BSP Audio Component Drivers
-
-| BSP Component Driver | Repository |
-| :--- | :--- |
-| ra-da7212 | [Go to repository](#) |
-| ra-wm8978 | [Go to repository](#) |
-
-#### Renesas BSP BLE Component Drivers
-
-| BSP Component Driver | Repository |
-| :--- | :--- |
-| ra-da14531 | [Go to repository](#) |
-
-#### Renesas BSP Camera Component Drivers
-
-| BSP Component Driver | Repository |
-| :--- | :--- |
-| ra-ov3640 | [Go to repository](#) |
-| ra-ov5640 | [Go to repository](#) |
-
-#### Renesas BSP Display Component Drivers
-
-| BSP Component Driver | Repository |
-| :--- | :--- |
-| ra-sn65dsi | [Go to repository](#) |
-
-#### Renesas BSP EEPROM Component Drivers
-
-| BSP Component Driver | Repository |
-| :--- | :--- |
-| ra-r1ex24 | [Go to repository](#) |
-
-#### Renesas BSP IO Expander Component Drivers
-
-| BSP Component Driver | Repository |
-| :--- | :--- |
-| ra-pcal6408 | [Go to repository](#) |
-
-#### Renesas BSP LCD Component Drivers
-
-| BSP Component Driver | Repository |
-| :--- | :--- |
-| ra-ili9341 | [Go to repository](#) |
-| ra-st7789 | [Go to repository](#) |
-| ra-gt911 | [Go to repository](#) |
-
-#### Renesas BSP MEMS Component Drivers
-
-| BSP Component Driver | Repository |
-| :--- | :--- |
-| ra-icm42605 | [Go to repository](#) |
-| ra-icp10101 | [Go to repository](#) |
-| ra-zmod4410 | [Go to repository](#) |
-
-#### Renesas BSP Networking Component Drivers
-
-| BSP Component Driver | Repository |
-| :--- | :--- |
-| ra-dp83848 | [Go to repository](#) |
-| ra-ksz8091 | [Go to repository](#) |
-
-#### Renesas BSP NFC/RFID Tag Component Drivers
-
-| BSP Component Driver | Repository |
-| :--- | :--- |
-| ra-st25dv | [Go to repository](#) |
-
-#### Renesas BSP xSPI-Interfaced Memory Component Drivers
-
-| BSP Component Driver | Repository |
-| :--- | :--- |
-| ra-mx25l | [Go to repository](#) |
-| ra-mx25um | [Go to repository](#) |
-| ra-at25 | [Go to repository](#) |
-
-#### Renesas BSP SDRAM Component Drivers
-
-| BSP Component Driver | Repository |
-| :--- | :--- |
-| ra-is42s16 | [Go to repository](#) |
-
-#### Renesas BSP Temperature and Humidity Sensor Component Drivers
-
-| BSP Component Driver | Repository |
-| :--- | :--- |
-| ra-hs300x | [Go to repository](#) |
-| ra-hs400x | [Go to repository](#) |
-
-#### Renesas BSP Touch Screen Component Drivers
-
-| BSP Component Driver | Repository |
-| :--- | :--- |
-| ra-ft5x06 | [Go to repository](#) |
-| ra-gt911 | [Go to repository](#) |
-
-#### Renesas BSP USB-C Component Drivers
-
-| BSP Component Driver | Repository |
-| :--- | :--- |
-| ra-tcpp01 | [Go to repository](#) |
-
-#### Renesas BSP Wi-Fi Component Drivers
-
-| BSP Component Driver | Repository |
-| :--- | :--- |
-| ra-da16200 | [Go to repository](#) |
-| ra-ry-wifi | [Go to repository](#) |
+> The complete list of supported board folders is available in [`ra/board`](https://github.com/renesas/fsp/tree/master/ra/board).
 
 ## Renesas MW Libraries and Applications
 
-Middleware libraries provide software modules that handle common functions like communication, file systems, real-time operating systems (RTOS), and graphics, simplifying application development across Renesas RA microcontrollers.
+Middleware libraries provide software modules handling communication, file systems, RTOS, security and graphics. Renesas-tuned middleware is delivered either inside FSP (as `rm_*` module folders) or, for third-party stacks, as dedicated Renesas forks.
 
-**Section content**
+| Middleware | Description | Repository |
+| :--- | :--- | :--- |
+| lwIP | TCP/IP networking stack (Renesas fork) | [Go to repository](https://github.com/renesas/lwip) |
+| Mbed TLS | SSL/TLS and crypto library (Renesas fork) | [Go to repository](https://github.com/renesas/mbedtls) |
+| TF-PSA-Crypto | PSA Cryptography API reference implementation (Renesas fork) | [Go to repository](https://github.com/renesas/TF-PSA-Crypto) |
+| Trusted Firmware-M | TF-M secure firmware for Armv8-M TrustZone | [Go to repository](https://github.com/renesas/trusted-firmware-m) |
+| MCUboot | Secure bootloader for 32-bit MCUs (Renesas fork) | [Go to repository](https://github.com/renesas/mcuboot) |
+| LVGL | Embedded graphics library (Renesas fork) | [Go to repository](https://github.com/renesas/lvgl) |
+| minimp3 | Minimalistic MP3 decoder (Renesas fork) | [Go to repository](https://github.com/renesas/minimp3) |
+| Zephyr RTOS | Zephyr Project primary tree (Renesas fork) | [Go to repository](https://github.com/renesas/zephyr) |
+| Zephyr HAL (hal_renesas) | HAL for Renesas devices in the Zephyr Project | [Go to repository](https://github.com/renesas/hal_renesas) |
+| NuttX | Apache NuttX RTOS (Renesas fork) | [Go to repository](https://github.com/renesas/nuttx) |
+| MicroPython | MicroPython for Renesas MCUs | [Go to repository](https://github.com/renesas/micropython) |
 
-- [Renesas Classic Core MW Libraries](#renesas-classic-core-mw-libraries)
-- [Renesas Azure RTOS MW Libraries](#renesas-azure-rtos-mw-libraries)
-- [Renesas Miscellaneous MW Libraries](#renesas-miscellaneous-mw-libraries)
-- [Renesas Classic Core MW Applications](#renesas-classic-core-mw-applications)
-- [Renesas Secure Bootloader MW Applications](#renesas-secure-bootloader-mw-applications)
+## Renesas AI and Model Deployment
 
-### Renesas Classic Core MW Libraries
+The Renesas AI toolchain converts, optimizes and deploys trained models onto RA/RX MCUs and RZ MPUs.
 
-| Middleware library | Repository |
-| :--- | :--- |
-| ra-mw-fatfs | [Go to repository](#) |
-| ra-mw-freertos | [Go to repository](#) |
-| ra-mw-lwip | [Go to repository](#) |
-| ra-mw-usb-device | [Go to repository](#) |
-| ra-mw-usb-host | [Go to repository](#) |
-
-### Renesas Azure RTOS MW Libraries
-
-| Middleware library | Repository |
-| :--- | :--- |
-| ra-mw-threadx | [Go to repository](#) |
-| ra-mw-filex | [Go to repository](#) |
-| ra-mw-levelx | [Go to repository](#) |
-| ra-mw-netxduo | [Go to repository](#) |
-| ra-mw-usbx | [Go to repository](#) |
-| ra-mw-guix | [Go to repository](#) |
-
-### Renesas Miscellaneous MW Libraries
-
-| Middleware library | Repository |
-| :--- | :--- |
-| ra-mw-mbedtls | [Go to repository](#) |
-| ra-mw-mcuboot | [Go to repository](#) |
-| ra-mw-lorawan | [Go to repository](#) |
-| ra-mw-tinymaix | [Go to repository](#) |
-| ra-mw-tfm | [Go to repository](#) |
-
-### Renesas Classic Core MW Applications
-
-| Middleware application | Repository |
-| :--- | :--- |
-| ra6-classic-coremw-apps | [Go to repository](#) |
-| ra8-classic-coremw-apps | [Go to repository](#) |
-
-### Renesas Secure Bootloader MW Applications
-
-| Middleware application | Repository |
-| :--- | :--- |
-| ra4-secureboot-apps | [Go to repository](#) |
-| ra6-secureboot-apps | [Go to repository](#) |
-| ra8-secureboot-apps | [Go to repository](#) |
-
-## Renesas USB-PD Components
-
-The USB Power Delivery (USB-PD) software stack includes middleware, BSP drivers, and utilities such as debugging tools, providing a comprehensive solution for USB Power Delivery implementation.
-
-**Section content**
-
-- [Renesas USB-PD MW Libraries](#renesas-usb-pd-mw-libraries)
-- [Renesas USB-PD BSP Component Drivers](#renesas-usb-pd-bsp-component-drivers)
-- [Renesas USB-PD Utilities](#renesas-usb-pd-utilities)
-
-### Renesas USB-PD MW Libraries
-
-| Middleware library | Repository |
-| :--- | :--- |
-| ra-mw-usbpd-core | [Go to repository](#) |
-| ra-mw-usbpd-device-ra4 | [Go to repository](#) |
-| ra-mw-usbpd-device-ra6 | [Go to repository](#) |
-| ra-mw-usbpd-ucsi | [Go to repository](#) |
-
-### Renesas USB-PD BSP Component Drivers
-
-| BSP component driver | Repository |
-| :--- | :--- |
-| ra-bsp-usbpd-tcpp01 | [Go to repository](#) |
-
-### Renesas USB-PD Utilities
-
-| Utility | Repository |
-| :--- | :--- |
-| ra-util-usbpd-tracer | [Go to repository](#) |
+| Component | Description | Repository |
+| :--- | :--- | :--- |
+| RUHMI Framework (MCU) | AI model optimization and deployment for MCUs, powered by EdgeCortix® MERA™ | [Go to repository](https://github.com/renesas/ruhmi-framework-mcu) |
+| RUHMI Framework (RZ/G) | AI model compiler workflow for RZ/G3E | [Go to repository](https://github.com/renesas/ruhmi-framework-rzg) |
+| RUHMI Model Zoo | AI/ML model zoo, optimized models and application examples for Renesas platforms | [Go to repository](https://github.com/renesas/ruhmi-model-zoo) |
 
 ## Renesas Utilities and miscellaneous
 
-These repositories provide tools and resources to assist development with Renesas RA microcontrollers.
+These repositories provide tools and resources to assist development with Renesas microcontrollers.
 
-| Utility and miscellaneous | Repository |
-| :--- | :--- |
-| ra-external-loader | [Go to repository](#) |
-| ra-ai-tools | [Go to repository](#) |
-| RA_open_pin_data | [Go to repository](#) |
+| Utility | Description | Repository |
+| :--- | :--- | :--- |
+| Smart Configurator Data | Data repository for the Smart Configurator (SC) tool | [Go to repository](https://github.com/renesas/smart-configurator-data) |
+| CMSIS-View | Software event generation and I/O handling tooling | [Go to repository](https://github.com/renesas/CMSIS-View) |
+| RZ/A Initial Program Loader | Initial Program Loader (IPL) for RZ/A MPU | [Go to repository](https://github.com/renesas/rza-initial-program-loader) |
